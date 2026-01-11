@@ -1,3 +1,4 @@
+<img width="1796" height="923" alt="screenshot png" src="https://github.com/user-attachments/assets/bf18c509-8bf9-4b99-96bc-7cb5c0ccc8d9" />
 # Modern Registration Form
 
 A beautiful, modern registration form built with pure HTML and CSS. Features a stunning gradient background, glass-morphism effects, and smooth animations.
