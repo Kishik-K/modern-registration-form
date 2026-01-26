@@ -12,7 +12,7 @@ This is not a basic form layout.
 It’s a fully animated, theme-aware registration interface featuring floating labels, real-time validation, ambient background motion, and refined typography.
 Every interaction is designed to feel smooth, responsive, and satisfying.
 <img width="1900" height="1079" alt="image" src="https://github.com/user-attachments/assets/42ebd8f5-160b-4425-be80-28930c5d1d9d" />
-<img width="1899" height="1079" alt="image" src="https://github.com/user-attachments/assets/e8bb17a0-438b-463d-b896-f8f96ef9c06a" />
+<img width="1899" height="1079" alt="image" src="https://github.com/user-attachments/assets/74c8408d-3980-480e-ba2f-553685169b4a" />
 
 
 
