@@ -1,942 +1,316 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lora:ital@0;1&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --bg-primary: #0f0f0d;
-    --bg-secondary: #1a1a18;
-    --text-primary: #f5f5f2;
-    --text-secondary: #a0a0a0;
-    --text-light: #7a7a7a;
-    --accent: #f5f5f2;
-    --border-color: #2a2a28;
-    --success: #6b9f7f;
-    --error: #d97060;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Lora', serif;
-    padding: 40px 20px;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* Light Mode */
-body.light-mode {
-    --bg-primary: #fafaf8;
-    --bg-secondary: #f5f5f2;
-    --text-primary: #1a1a1a;
-    --text-secondary: #7a7a7a;
-    --text-light: #a0a0a0;
-    --border-color: #e8e8e5;
-    --success: #4a7c59;
-    --error: #c85a54;
-}
-
-body.light-mode .background-blur {
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(74, 124, 89, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(200, 90, 84, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(100, 100, 100, 0.05) 0%, transparent 50%);
-}
-
-/* Background Elements */
-.background-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(107, 159, 127, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(217, 112, 96, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(160, 160, 160, 0.05) 0%, transparent 50%);
-    z-index: -1;
-    animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-    0%, 100% {
-        background: 
-            radial-gradient(circle at 20% 50%, rgba(107, 159, 127, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(217, 112, 96, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 40% 20%, rgba(160, 160, 160, 0.05) 0%, transparent 50%);
-    }
-    50% {
-        background: 
-            radial-gradient(circle at 80% 30%, rgba(107, 159, 127, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 20% 70%, rgba(217, 112, 96, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 60% 90%, rgba(160, 160, 160, 0.05) 0%, transparent 50%);
-    }
-}
-
-/* Floating Elements */
-.floating-elements {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.element {
-    position: absolute;
-    border: 1px solid var(--border-color);
-    opacity: 0.08;
-    transition: opacity 0.4s ease;
-    filter: blur(0.5px);
-}
-
-.element-1 {
-    width: 400px;
-    height: 400px;
-    top: -10%;
-    right: -5%;
-    border-radius: 50%;
-    animation: float 20s ease-in-out infinite;
-    box-shadow: inset 0 0 60px rgba(107, 159, 127, 0.1);
-}
-
-.element-2 {
-    width: 350px;
-    height: 350px;
-    bottom: -10%;
-    left: -5%;
-    border-radius: 50%;
-    animation: float 25s ease-in-out infinite reverse;
-    box-shadow: inset 0 0 60px rgba(217, 112, 96, 0.1);
-}
-
-.element-3 {
-    width: 280px;
-    height: 280px;
-    top: 30%;
-    right: 15%;
-    border-radius: 40%;
-    animation: float 22s ease-in-out infinite;
-    box-shadow: inset 0 0 40px rgba(160, 160, 160, 0.08);
-}
-
-.element-4 {
-    width: 200px;
-    height: 200px;
-    bottom: 25%;
-    left: 20%;
-    border-radius: 35%;
-    animation: float 18s ease-in-out infinite reverse;
-    box-shadow: inset 0 0 40px rgba(107, 159, 127, 0.08);
-}
-
-@keyframes float {
-    0%, 100% { 
-        transform: translateY(0px) translateX(0px);
-        opacity: 0.08;
-    }
-    25% { 
-        transform: translateY(-40px) translateX(20px);
-        opacity: 0.12;
-    }
-    50% { 
-        transform: translateY(-80px) translateX(-30px);
-        opacity: 0.08;
-    }
-    75% { 
-        transform: translateY(-40px) translateX(15px);
-        opacity: 0.1;
-    }
-}
-
-/* Theme Toggle */
-.theme-toggle {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    width: 50px;
-    height: 50px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-    border-color: var(--text-primary);
-    transform: scale(1.08);
-    background: var(--bg-primary);
-}
-
-.theme-toggle svg {
-    width: 24px;
-    height: 24px;
-    stroke-width: 1.5;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-}
-
-.sun-icon {
-    display: block;
-}
-
-.moon-icon {
-    display: none;
-}
-
-body.light-mode .sun-icon {
-    display: none;
-}
-
-body.light-mode .moon-icon {
-    display: block;
-}
-
-/* Form Container */
-.form-container {
-    width: 100%;
-    max-width: 520px;
-    animation: slideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    z-index: 10;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Header */
-.header-section {
-    text-align: center;
-    margin-bottom: 70px;
-    position: relative;
-}
-
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.8rem;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 6px;
-    margin-bottom: 16px;
-    line-height: 1;
-    color: var(--text-primary);
-    position: relative;
-}
-
-h1::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 1px;
-    background: var(--border-color);
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.header-section > p {
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    text-transform: lowercase;
-    color: var(--text-secondary);
-    font-weight: 400;
-    margin-bottom: 24px;
-}
-
-.header-section > p a {
-    color: var(--text-primary);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
-    padding-bottom: 2px;
-    position: relative;
-}
-
-.header-section > p a:hover {
-    border-bottom-color: var(--text-primary);
-    color: var(--text-primary);
-}
-
-.header-section > p a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--text-primary);
-    transition: width 0.3s ease;
-}
-
-.header-section > p a:hover::after {
-    width: 100%;
-}
-
-.divider {
-    width: 80px;
-    height: 1px;
-    background: var(--border-color);
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-.header-section:hover .divider {
-    width: 120px;
-}
-
-/* Form */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Form Sections */
-.form-section {
-    margin-bottom: 50px;
-    padding: 0;
-    border: none;
-}
-
-.form-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 2px;
-    margin-bottom: 35px;
-    color: var(--text-primary);
-    position: relative;
-    padding-bottom: 12px;
-}
-
-.form-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 1px;
-    background: var(--border-color);
-    transition: width 0.4s ease;
-}
-
-.form-section:hover h2::after {
-    width: 100%;
-}
-
-/* Input Wrapper */
-.input-wrapper {
-    position: relative;
-    margin-bottom: 40px;
-}
-
-input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
-select,
-textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1.5px solid var(--border-color);
-    padding: 12px 0 8px 0;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    font-family: 'Lora', serif;
-    transition: all 0.3s ease;
-    outline: none;
-}
-
-input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):focus,
-select:focus,
-textarea:focus {
-    border-bottom-color: var(--text-primary);
-    padding-bottom: 6px;
-}
-
-.input-wrapper label {
-    position: absolute;
-    left: 0;
-    top: 12px;
-    color: var(--text-light);
-    font-size: 0.95rem;
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    font-weight: 400;
-}
-
-.input-wrapper input.has-value + label,
-.input-wrapper select.has-value + label,
-.input-wrapper textarea.has-value + label,
-.input-wrapper.focused label {
-    top: -22px;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    font-weight: 500;
-}
-
-.underline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--text-primary);
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.input-wrapper.focused .underline {
-    width: 100%;
-}
-
-.input-wrapper.valid .underline {
-    background: var(--success);
-    width: 100%;
-}
-
-.input-wrapper.error input,
-.input-wrapper.error select,
-.input-wrapper.error textarea {
-    border-bottom-color: var(--error);
-    animation: shake 0.3s ease;
-}
-
-.input-wrapper.error .underline {
-    background: var(--error);
-    width: 100%;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-}
-
-/* Email Validation */
-.email-validation {
-    position: absolute;
-    right: 0;
-    top: 12px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.email-validation.valid {
-    color: var(--success);
-}
-
-.email-validation.invalid {
-    color: var(--error);
-}
-
-/* Password Strength */
-.password-strength {
-    position: absolute;
-    bottom: -12px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--border-color);
-    border-radius: 1px;
-    overflow: hidden;
-    margin-top: 8px;
-}
-
-.strength-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--text-secondary), var(--success));
-    transition: all 0.4s ease;
-}
-
-/* Radio Group */
-.radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.radio-option input[type="radio"] {
-    display: none;
-}
-
-.radio-option label {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 24px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-secondary);
-}
-
-.radio-option label::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(245, 245, 242, 0.05), transparent);
-    transition: left 0.5s ease;
-}
-
-.radio-option label:hover {
-    border-color: var(--text-secondary);
-    transform: translateX(4px);
-}
-
-.radio-option label:hover::before {
-    left: 100%;
-}
-
-.radio-custom {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-    margin-top: 2px;
-}
-
-.radio-custom::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 8px;
-    height: 8px;
-    background: var(--text-primary);
-    border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.radio-option input[type="radio"]:checked + label {
-    border-color: var(--text-primary);
-    background: var(--bg-primary);
-}
-
-.radio-option input[type="radio"]:checked + label .radio-custom {
-    border-color: var(--text-primary);
-}
-
-.radio-option input[type="radio"]:checked + label .radio-custom::after {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.radio-text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-    position: relative;
-    z-index: 1;
-}
-
-.radio-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-.radio-desc {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    font-style: italic;
-}
-
-/* File Upload */
-.file-upload-container {
-    margin-bottom: 40px;
-}
-
-.file-upload-wrapper {
-    position: relative;
-}
-
-.file-upload-wrapper input[type="file"] {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.file-upload-label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 40px 24px;
-    border: 2px dashed var(--border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    pointer-events: none;
-    background: var(--bg-secondary);
-}
-
-.file-upload-wrapper:hover .file-upload-label {
-    border-color: var(--text-primary);
-    background: var(--bg-primary);
-    transform: translateY(-2px);
-}
-
-.file-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.file-name {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    font-style: italic;
-}
-
-/* Select */
-select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f5f5f2' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0 center;
-    background-size: 12px;
-    padding-right: 20px;
-}
-
-body.light-mode select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231a1a1a' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
-}
-
-select option {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-/* Textarea */
-textarea {
-    resize: none;
-    min-height: 60px;
-    overflow: hidden;
-    line-height: 1.6;
-}
-
-.char-counter {
-    position: absolute;
-    right: 0;
-    bottom: -25px;
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-weight: 400;
-}
-
-/* Checkbox */
-.checkbox-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 28px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--bg-secondary);
-    margin: 50px 0 40px 0;
-    transition: all 0.3s ease;
-}
-
-.checkbox-container:hover {
-    border-color: var(--text-secondary);
-    background: var(--bg-primary);
-}
-
-.checkbox-container input[type="checkbox"] {
-    display: none;
-}
-
-.checkbox-container label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-}
-
-.checkbox-custom {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 3px;
-    position: relative;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.checkbox-custom svg {
-    width: 12px;
-    height: 12px;
-    stroke: var(--bg-primary);
-    stroke-width: 2.5;
-    fill: none;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.checkbox-container input[type="checkbox"]:checked + label .checkbox-custom {
-    background: var(--text-primary);
-    border-color: var(--text-primary);
-}
-
-.checkbox-container input[type="checkbox"]:checked + label .checkbox-custom svg {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.checkbox-container a {
-    color: var(--text-primary);
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.checkbox-container a:hover {
-    color: var(--text-secondary);
-}
-
-/* Submit Button */
-.submit-btn {
-    width: 100%;
-    padding: 20px;
-    margin-top: 30px;
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    font-family: 'Lora', serif;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.submit-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: left 0.5s ease;
-    z-index: 0;
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-}
-
-.submit-btn:hover::before {
-    left: 100%;
-}
-
-.submit-btn:active {
-    transform: translateY(-1px);
-}
-
-.submit-btn span {
-    position: relative;
-    z-index: 1;
-}
-
-body.light-mode .submit-btn {
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    border: none;
-}
-
-body.light-mode .submit-btn:hover {
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-}
-
-/* Footer Text */
-.footer-text {
-    text-align: center;
-    margin-top: 60px;
-    font-size: 0.8rem;
-    color: var(--text-light);
-    letter-spacing: 2px;
-    font-style: italic;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-color);
-}
-
-.footer-divider {
-    width: 60px;
-    height: 1px;
-    background: var(--border-color);
-    margin: 24px auto;
-    transition: all 0.3s ease;
-}
-
-.footer-text:hover .footer-divider {
-    width: 100%;
-}
-
-.github-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    padding: 10px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    margin-top: 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-.github-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--border-color);
-    transition: left 0.4s ease;
-    z-index: -1;
-}
-
-.github-link:hover {
-    border-color: var(--text-primary);
-    color: var(--bg-primary);
-}
-
-.github-link:hover::before {
-    left: 0;
-}
-
-.github-link svg {
-    width: 18px;
-    height: 18px;
-    transition: all 0.3s ease;
-}
-
-.github-link:hover svg {
-    transform: rotate(-20deg) scale(1.1);
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.8rem;
-        letter-spacing: 3px;
-    }
-
-    .form-section h2 {
-        font-size: 1.2rem;
-    }
-
-    .input-wrapper {
-        margin-bottom: 32px;
-    }
-
-    .radio-group {
-        gap: 12px;
-    }
-
-    .theme-toggle {
-        top: 20px;
-        right: 20px;
-        width: 44px;
-        height: 44px;
-    }
-
-    .theme-toggle svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .checkbox-container {
-        padding: 20px;
-        font-size: 0.85rem;
-    }
-
-    .element-1 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .element-2 {
-        width: 150px;
-        height: 150px;
-    }
-
-    .github-link {
-        font-size: 0.8rem;
-        padding: 8px 12px;
-    }
-
-    .github-link svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Visual Stories</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-blur"></div>
+    
+    <div class="floating-elements">
+        <div class="element element-1"></div>
+        <div class="element element-2"></div>
+        <div class="element element-3"></div>
+        <div class="element element-4"></div>
+    </div>
+    
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <div class="form-container">
+        <div class="header-section">
+            <h1>J O I N ~ U S</h1>
+            <p>become part of <a href="https://kishik-k.github.io/visual-stories-portfolio/" target="_blank" rel="noopener noreferrer">visual stories</a></p>
+            <div class="divider"></div>
+        </div>
+
+        <form id="registrationForm" method="post" action="https://register-demo.freecodecamp.org">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                
+                <div class="input-wrapper">
+                    <input id="first-name" name="first-name" type="text" required />
+                    <label for="first-name">First Name</label>
+                    <div class="underline"></div>
+                </div>
+
+                <div class="input-wrapper">
+                    <input id="last-name" name="last-name" type="text" required />
+                    <label for="last-name">Last Name</label>
+                    <div class="underline"></div>
+                </div>
+
+                <div class="input-wrapper">
+                    <input id="email" name="email" type="email" required />
+                    <label for="email">Email</label>
+                    <div class="underline"></div>
+                    <span class="email-validation"></span>
+                </div>
+
+                <div class="input-wrapper">
+                    <input id="new-password" name="new-password" type="password" pattern="[a-z0-9]{8,}" required />
+                    <label for="new-password">Password</label>
+                    <div class="underline"></div>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Type Section -->
+            <div class="form-section">
+                <h2>Account Type</h2>
+                
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input id="personal-account" type="radio" name="account-type" checked />
+                        <label for="personal-account">
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">
+                                <span class="radio-title">Personal</span>
+                                <span class="radio-desc">For individual artists</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="radio-option">
+                        <input id="business-account" type="radio" name="account-type" />
+                        <label for="business-account">
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">
+                                <span class="radio-title">Studio</span>
+                                <span class="radio-desc">For organizations</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Details Section -->
+            <div class="form-section">
+                <h2>Tell Your Story</h2>
+
+                <div class="file-upload-container">
+                    <div class="file-upload-wrapper">
+                        <input id="profile-picture" type="file" name="file" accept="image/*" />
+                        <label for="profile-picture" class="file-upload-label">
+                            <span class="file-text">Upload Portfolio Image</span>
+                            <span class="file-name">No image selected</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <input id="age" type="number" name="age" min="13" max="120" />
+                    <label for="age">Age (optional)</label>
+                    <div class="underline"></div>
+                </div>
+
+                <div class="input-wrapper">
+                    <select id="referrer" name="referrer">
+                        <option value="" disabled selected></option>
+                        <option value="1">Instagram</option>
+                        <option value="2">YouTube</option>
+                        <option value="3">Forum</option>
+                        <option value="4">Friend</option>
+                        <option value="5">Other</option>
+                    </select>
+                    <label for="referrer">How did you find us?</label>
+                    <div class="underline"></div>
+                </div>
+
+                <div class="input-wrapper">
+                    <textarea id="bio" name="bio" rows="1" placeholder=" " maxlength="300"></textarea>
+                    <label for="bio">Your artistic journey</label>
+                    <div class="underline"></div>
+                    <span class="char-counter">0 / 300</span>
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="checkbox-container">
+                <input id="terms-and-conditions" type="checkbox" required name="terms-and-conditions" />
+                <label for="terms-and-conditions">
+                    <span class="checkbox-custom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    <span>I agree to the <a href="#">terms and conditions</a></span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>Create Account</span>
+            </button>
+        </form>
+
+        <div class="footer-text">
+            <p>~ every story deserves to be shared ~</p>
+            <div class="footer-divider"></div>
+            <a href="https://github.com/Kishik-K" target="_blank" rel="noopener noreferrer" class="github-link">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            localStorage.setItem('visual-stories-theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // Load saved theme (default to dark)
+        const savedTheme = localStorage.getItem('visual-stories-theme');
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+
+        // Floating Labels
+        const inputs = document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]):not([type="file"]), select, textarea');
+        
+        inputs.forEach(input => {
+            if (input.value) {
+                input.classList.add('has-value');
+            }
+            
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('focused');
+                if (input.value) {
+                    input.classList.add('has-value');
+                } else {
+                    input.classList.remove('has-value');
+                }
+            });
+            
+            input.addEventListener('input', () => {
+                if (input.value) {
+                    input.classList.add('has-value');
+                } else {
+                    input.classList.remove('has-value');
+                }
+            });
+        });
+
+        // Email Validation
+        const emailInput = document.getElementById('email');
+        const emailValidation = document.querySelector('.email-validation');
+        
+        emailInput.addEventListener('input', (e) => {
+            const email = e.target.value;
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            
+            if (email.length > 0) {
+                if (isValid) {
+                    emailValidation.textContent = '✓';
+                    emailValidation.className = 'email-validation valid';
+                    emailInput.parentElement.classList.add('valid');
+                } else {
+                    emailValidation.textContent = '✗';
+                    emailValidation.className = 'email-validation invalid';
+                    emailInput.parentElement.classList.remove('valid');
+                }
+            } else {
+                emailValidation.textContent = '';
+                emailInput.parentElement.classList.remove('valid');
+            }
+        });
+
+        // Password Strength
+        const passwordInput = document.getElementById('new-password');
+        const strengthBar = document.querySelector('.strength-bar');
+        
+        passwordInput.addEventListener('input', (e) => {
+            const value = e.target.value;
+            let strength = 0;
+            
+            if (value.length >= 8) strength += 25;
+            if (value.length >= 12) strength += 25;
+            if (/[0-9]/.test(value)) strength += 25;
+            if (/[a-z]/.test(value)) strength += 25;
+            
+            strengthBar.style.width = strength + '%';
+        });
+
+        // Character Counter
+        const bioTextarea = document.getElementById('bio');
+        const charCounter = document.querySelector('.char-counter');
+        
+        bioTextarea.addEventListener('input', function() {
+            const count = this.value.length;
+            charCounter.textContent = count + ' / 300';
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+
+        // File Upload
+        const fileInput = document.getElementById('profile-picture');
+        const fileNameSpan = document.querySelector('.file-name');
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameSpan.textContent = e.target.files[0].name;
+            } else {
+                fileNameSpan.textContent = 'No image selected';
+            }
+        });
+
+        // Form Validation
+        const form = document.getElementById('registrationForm');
+        const requiredInputs = form.querySelectorAll('[required]');
+
+        requiredInputs.forEach(input => {
+            input.addEventListener('invalid', (e) => {
+                e.preventDefault();
+                input.parentElement.classList.add('error');
+            });
+
+            input.addEventListener('input', () => {
+                if (input.validity.valid) {
+                    input.parentElement.classList.remove('error');
+                } else {
+                    input.parentElement.classList.add('error');
+                }
+            });
+
+            input.addEventListener('change', () => {
+                if (input.validity.valid) {
+                    input.parentElement.classList.remove('error');
+                } else {
+                    input.parentElement.classList.add('error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
